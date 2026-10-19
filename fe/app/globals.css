@@ -1,0 +1,39 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import 'tailwindcss';
+
+:root {
+  --color-primary: #35c884;
+  --color-primary-dark: #0b654b;
+  --color-primary-light: #ddf8e9;
+  --color-danger: #ff5d5d;
+  --color-danger-light: #ffe5e5;
+  --color-background: #f9faf7;
+  --color-border: #e5e7eb;
+}
+
+/* 대시보드 본문: 위 흰색 → F7F8F9 → 아래 F4FFD7 */
+.bg-dashboard {
+  background: linear-gradient(180deg, #ffffff 0%, #f7f8f9 42%, #f4ffd7 100%);
+}
+
+/* 히어로 카드 */
+.bg-hero-card {
+  background-color: #34c37d;
+  background-image: linear-gradient(90deg, #34c37d 11%, #a4e8a1 90%);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
+}
