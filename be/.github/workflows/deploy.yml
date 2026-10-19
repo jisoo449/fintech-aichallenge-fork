@@ -1,0 +1,51 @@
+name: Deploy Spring Boot
+
+on:
+  push:
+    branches:
+      - develop
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build
+        run: |
+          chmod +x gradlew
+          ./gradlew bootJar -x test
+
+      - name: Deploy JAR
+        run: |
+          echo "Current directory: $(pwd)"
+          ls -lh build/libs/
+          cp build/libs/*.jar /opt/myapp/app.jar
+          echo "Deployed JAR:"
+          ls -lh /opt/myapp/app.jar
+          sudo -n systemctl restart springboot
+
+      - name: Debug sudo
+        run: |
+          echo "USER=$USER"
+          whoami
+          id
+          hostname
+          which sudo
+          sudo -V | head -n 3
+          sudo -n -l
